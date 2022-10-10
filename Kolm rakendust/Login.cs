@@ -63,7 +63,7 @@ namespace Kolm_rakendust
             loginbutton = new Button
             {
                 Text = "Login",
-                Location = new System.Drawing.Point(200, 250),//Point(x,y)
+                Location = new System.Drawing.Point(90, 275),//Point(x,y)
                 Width = 150,
                 Height = 35,
                 BackColor = Color.LightYellow
@@ -72,7 +72,7 @@ namespace Kolm_rakendust
             registrbutton = new Button
             {
                 Text = "Registr",
-                Location = new System.Drawing.Point(200, 300),//Point(x,y)
+                Location = new System.Drawing.Point(270, 275),//Point(x,y)
                 Width = 150,
                 Height = 35,
                 BackColor = Color.LightYellow

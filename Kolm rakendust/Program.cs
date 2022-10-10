@@ -18,7 +18,7 @@ namespace Kolm_rakendust
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Login());
 
-            /*using (ApplicationContext db = new ApplicationContext())
+            using (ApplicationContext db = new ApplicationContext())
             {
                 // создаем два объекта User
                 Loginandpass nikita = new Loginandpass { kasutajanimi = "nikita", email = "nikita@gmail.com" };
@@ -35,7 +35,7 @@ namespace Kolm_rakendust
                 {
                     Console.WriteLine($"{u.Id}.{u.kasutajanimi} - {u.email}");
                 }
-            }*/
+            }
         }
 
 
