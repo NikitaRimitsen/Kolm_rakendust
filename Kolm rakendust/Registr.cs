@@ -13,7 +13,7 @@ namespace Kolm_rakendust
     public partial class Registr : Form
     {
         
-        Button registrbutton;
+        Button registrbutton, back;
         string[] sugupolo = { "Mees", "Naine" };
         TextBox kasutaja = new TextBox
         {
@@ -128,12 +128,21 @@ namespace Kolm_rakendust
             registrbutton = new Button
             {
                 Text = "Registr",
-                Location = new System.Drawing.Point(200, 450),//Point(x,y)
+                Location = new System.Drawing.Point(90, 450),//Point(x,y)
                 Width = 150,
                 Height = 35,
                 BackColor = Color.LightYellow
             };
             registrbutton.Click += Registrbutton_Click;
+            back = new Button
+            {
+                Text = "Tagasi",
+                Location = new System.Drawing.Point(280, 450),//Point(x,y)
+                Width = 150,
+                Height = 35,
+                BackColor = Color.LightYellow
+            };
+            back.Click += Back_Click;
 
             this.Controls.Add(nimilabel);
             this.Controls.Add(loginnimi);
@@ -147,6 +156,15 @@ namespace Kolm_rakendust
             this.Controls.Add(vanus);
             this.Controls.Add(password);
             this.Controls.Add(registrbutton);
+            this.Controls.Add(back);
+        }
+
+        private void Back_Click(object sender, EventArgs e)
+        {
+            Login login = new Login();
+            login.StartPosition = FormStartPosition.CenterScreen;
+            login.Show();
+            this.Hide();
         }
 
         private void Registrbutton_Click(object sender, EventArgs e)

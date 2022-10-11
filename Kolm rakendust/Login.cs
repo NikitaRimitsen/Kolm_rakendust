@@ -32,7 +32,7 @@ namespace Kolm_rakendust
         };
 
 
-        static string conn = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\opilane\Source\Repos\Kolm_rakendust\Kolm rakendust\Dbkasutaja.mdf,Integrated Security=True";
+        static string conn = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\nikit\source\repos\Kolm_rakenduste\Kolm rakendust\appData\KasutajaDbnew.mdf,Integrated Security=True";
         /*Vaja muuta           ↑ ↑ ↑ ↑ ↑ ↑ ↑ see on see, kui kolisite teise arvuti taha!!!!!!!!!*/
         SqlConnection connect_to_DB = new SqlConnection(conn);
 
@@ -42,15 +42,15 @@ namespace Kolm_rakendust
         {
 
             this.StartPosition = FormStartPosition.CenterScreen;
-            this.Name = "Login";
+            this.Name = "Sisselogimine";
             this.Size = new Size(500, 400);
 
             Label nimilabel = new Label
             {
-                Location = new System.Drawing.Point(200, 30),//Point(x,y)
+                Location = new System.Drawing.Point(165, 30),//Point(x,y)
                 Height = 50,
-                Width = 170,
-                Text = "Login vorm",
+                Width = 300,
+                Text = "Sisselogimine vorm",
                 Font = new Font("Oswald", 16, FontStyle.Bold)
             };
 
@@ -102,7 +102,7 @@ namespace Kolm_rakendust
 
         private void Loginbutton_Click(object sender, EventArgs e)
         {
-            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\opilane\Source\Repos\Kolm_rakendust\Kolm rakendust\Dbkasutaja.mdf,Integrated Security=True");
+            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\nikit\source\repos\Kolm_rakenduste\Kolm rakendust\appData\KasutajaDbnew.mdf,Integrated Security=True");
             SqlDataAdapter sda = new SqlDataAdapter("SELECT Count(*) FROM Kasutaja WHERE kasutajanimi='" + login.Text + "' and parool ='" + parool.Text + "'", con);
             DataTable dt = new DataTable();
             sda.Fill(dt);
