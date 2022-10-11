@@ -10,6 +10,14 @@ namespace Kolm_rakendust
 {
     public class ApplicationContext : DbContext
     {
+
+        public DbSet<Loginandpass> Loginandpassw { get; set; } = null;
+
+        /*protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=loginandpassdb;Trusted_Connection=True;");
+        }*/
+        
         public DbSet<Loginandpass> Logins => Set<Loginandpass>();
         public ApplicationContext() => Database.EnsureCreated();
 

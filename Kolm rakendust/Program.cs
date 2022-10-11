@@ -18,6 +18,7 @@ namespace Kolm_rakendust
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Login());
 
+
             using (ApplicationContext db = new ApplicationContext())
             {
                 // создаем два объекта User
@@ -30,7 +31,7 @@ namespace Kolm_rakendust
 
                 // получаем объекты из бд и выводим на консоль
                 var users = db.Logins.ToList();
-                Console.WriteLine("Список объектов:");
+                Console.WriteLine("List:");
                 foreach (Loginandpass u in users)
                 {
                     Console.WriteLine($"{u.Id}.{u.kasutajanimi} - {u.email}");
