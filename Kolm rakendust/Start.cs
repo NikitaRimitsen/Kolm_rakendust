@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,19 +13,34 @@ namespace Kolm_rakendust
 {
     public partial class Start : Form
     {
-        Button picture, mathquiz, mathgame, tableplayers, loobu; 
+        Button picture, mathquiz, mathgame, tableplayers, loobu;
+        Label logintext;
+        StreamReader sr = new StreamReader(@"../../Data/Data.txt");
+        
         public Start()
         {
+            string name = sr.ReadLine();
+            sr.Close();
             this.StartPosition = FormStartPosition.CenterScreen;
             this.Name = "Menu";
             this.Size = new Size(550, 500);
+            this.BackColor = Color.Cornsilk;
 
+            logintext = new Label
+            {
+                Text = "Sisselogimine: " + name,
+                Height = 50,
+                Width = 300,
+                Font = new Font("Oswald", 12, FontStyle.Bold),
+                Location = new System.Drawing.Point(5, 5),
+            };
             picture = new Button
             {
                 Text = "Piltide vaatamise tööriist",
                 Width = 180,
                 Height = 30,
                 Location = new System.Drawing.Point(180, 100),
+                BackColor = Color.White,
             };
             picture.Click += Picture_Click;
             mathquiz = new Button
@@ -33,6 +49,7 @@ namespace Kolm_rakendust
                 Width = 180,
                 Height = 30,
                 Location = new System.Drawing.Point(180, 150),
+                BackColor = Color.White,
             };
             mathquiz.Click += Mathquiz_Click;
             mathgame = new Button
@@ -41,6 +58,7 @@ namespace Kolm_rakendust
                 Width = 180,
                 Height = 30,
                 Location = new System.Drawing.Point(180, 200),
+                BackColor = Color.White,
             };
             mathgame.Click += Mathgame_Click;
             tableplayers = new Button
@@ -49,6 +67,7 @@ namespace Kolm_rakendust
                 Width = 180,
                 Height = 30,
                 Location = new System.Drawing.Point(180, 250),
+                BackColor = Color.White,
             };
             tableplayers.Click += Tableplayers_Click;
             loobu = new Button
@@ -57,6 +76,7 @@ namespace Kolm_rakendust
                 Width = 180,
                 Height = 30,
                 Location = new System.Drawing.Point(180, 350),
+                BackColor = Color.White,
             };
             loobu.Click += Loobu_Click;
             this.Controls.Add(picture);
@@ -64,6 +84,7 @@ namespace Kolm_rakendust
             this.Controls.Add(mathgame);
             this.Controls.Add(tableplayers);
             this.Controls.Add(loobu);
+            this.Controls.Add(logintext);
         }
 
         private void Loobu_Click(object sender, EventArgs e)

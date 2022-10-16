@@ -8,35 +8,33 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.Data.SqlTypes;
+using System.Security.Cryptography;
+using System.IO;
 
 namespace Kolm_rakendust
 {
 
     public partial class Login : Form
     {
+        string connect = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\nikit\source\repos\Kolm_rakendustet\Kolm rakendust\appData\KasutajaDbnew.mdf;Integrated Security=True";
         
         Button loginbutton, registrbutton;
         TextBox login = new TextBox
         {
-            Location = new System.Drawing.Point(200, 105),//Point(x,y)
+            Location = new System.Drawing.Point(200, 100),//Point(x,y)
             Height = 90,
-            Width = 150
+            Width = 150,
+            Font = new Font("Oswald", 12, FontStyle.Regular)
         };
         TextBox parool = new TextBox
         {
-            Location = new System.Drawing.Point(200, 165),//Point(x,y)
+            Location = new System.Drawing.Point(200, 160),//Point(x,y)
             Height = 90,
             Width = 150,
-            
-
+            Font = new Font("Oswald", 12, FontStyle.Regular),
+            UseSystemPasswordChar = true
         };
-
-
-        static string conn = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\nikit\source\repos\Kolm_rakenduste\Kolm rakendust\appData\KasutajaDbnew.mdf,Integrated Security=True";
-        /*Vaja muuta           ↑ ↑ ↑ ↑ ↑ ↑ ↑ see on see, kui kolisite teise arvuti taha!!!!!!!!!*/
-        SqlConnection connect_to_DB = new SqlConnection(conn);
-
-        SqlCommand command;
 
         public Login()
         {
@@ -44,6 +42,7 @@ namespace Kolm_rakendust
             this.StartPosition = FormStartPosition.CenterScreen;
             this.Name = "Sisselogimine";
             this.Size = new Size(500, 400);
+            this.BackColor = Color.SkyBlue;
 
             Label nimilabel = new Label
             {
@@ -78,7 +77,8 @@ namespace Kolm_rakendust
                 Location = new System.Drawing.Point(90, 275),//Point(x,y)
                 Width = 150,
                 Height = 35,
-                BackColor = Color.LightYellow
+                BackColor = Color.LightCyan,//LightBlue
+                Font = new Font("Oswald", 10, FontStyle.Regular)
             };
             loginbutton.Click += Loginbutton_Click;
             registrbutton = new Button
@@ -87,7 +87,8 @@ namespace Kolm_rakendust
                 Location = new System.Drawing.Point(270, 275),//Point(x,y)
                 Width = 150,
                 Height = 35,
-                BackColor = Color.LightYellow
+                BackColor = Color.LightCyan,
+                Font = new Font("Oswald", 10, FontStyle.Regular)
             };
             registrbutton.Click += Registrbutton_Click;
 
@@ -100,25 +101,45 @@ namespace Kolm_rakendust
             this.Controls.Add(registrbutton);
         }
 
-        private void Loginbutton_Click(object sender, EventArgs e)
+        public async void Loginbutton_Click(object sender, EventArgs e)
         {
-            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\nikit\source\repos\Kolm_rakenduste\Kolm rakendust\appData\KasutajaDbnew.mdf,Integrated Security=True");
-            SqlDataAdapter sda = new SqlDataAdapter("SELECT Count(*) FROM Kasutaja WHERE kasutajanimi='" + login.Text + "' and parool ='" + parool.Text + "'", con);
-            DataTable dt = new DataTable();
-            sda.Fill(dt);
-            if (dt.Rows[0][0].ToString() == "1")
+            if (login.Text !="" && parool.Text !="")
             {
-                Start start = new Start();
-                start.StartPosition = FormStartPosition.CenterScreen;
-                start.Show();
-                this.Hide();
+                File.WriteAllText(@"../../Data/Data.txt", string.Empty);
+                SqlConnection con = new SqlConnection(connect);
+                con.Open();
+                int convert = 0;
+                SqlCommand command = con.CreateCommand();
+                command.CommandText = "SELECT Count(*) FROM Login WHERE kasutajanimi='" + login.Text + "' and parool ='" + parool.Text + "'";
+                DataTable datatable = new DataTable();
+                SqlDataAdapter podkl = new SqlDataAdapter(command);
+                podkl.Fill(datatable);
+                convert = Convert.ToInt32(datatable.Rows.Count.ToString());
+                if (convert == 0)
+                {
+                    MessageBox.Show("Vale parool või sisselogimine");
+                }
+                else
+                {
+                    StreamWriter sw = new StreamWriter(@"../../Data/Data.txt");
+                    sw.Write(login.Text);
+                    sw.Close();
+                    Start start = new Start();
+                    start.StartPosition = FormStartPosition.CenterScreen;
+                    start.Show();
+                    this.Hide();
+                    
+
+                }
+                con.Close();
             }
             else
             {
-                MessageBox.Show("Vale parool või sisselogimine");
+                MessageBox.Show("Te pole kõike täitnud palun kontrollige!");
             }
-
             
+
+
         }
         private void Registrbutton_Click(object sender, EventArgs e)
         {

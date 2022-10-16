@@ -39,7 +39,7 @@ namespace Kolm_rakendust
             };
             checkbox = new CheckBox
             {
-                Text = "Strech"
+                Text = "Venitama"
             };
             FlowLayoutPanel flowe = new FlowLayoutPanel { FlowDirection = FlowDirection.RightToLeft, Dock = DockStyle.Fill};
             Button showimg = new Button { Text= "Näita pilti", AutoSize = true, Name = "nupp1" };

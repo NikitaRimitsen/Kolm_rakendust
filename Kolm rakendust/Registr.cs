@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Kolm_rakendust
 {
@@ -17,46 +20,46 @@ namespace Kolm_rakendust
         string[] sugupolo = { "Mees", "Naine" };
         TextBox kasutaja = new TextBox
         {
-            Location = new System.Drawing.Point(200, 105),//Point(x,y)
+            Location = new System.Drawing.Point(200, 102),//Point(x,y)
             Height = 90,
-            Width = 150
+            Width = 150,
+            Font = new Font("Oswald", 12, FontStyle.Regular),
         };
         TextBox email = new TextBox
         {
-            Location = new System.Drawing.Point(200, 165),//Point(x,y)
+            Location = new System.Drawing.Point(200, 162),//Point(x,y)
             Height = 90,
             Width = 150,
-            UseSystemPasswordChar = true
+            Font = new Font("Oswald", 12, FontStyle.Regular),
 
         };
         ComboBox sugubox = new ComboBox
         {
             //DataSource = sugupolo.ToArray(),
-            Location = new System.Drawing.Point(200, 225),//Point(x,y)
+            Location = new System.Drawing.Point(200, 222),//Point(x,y)
             Height = 50,
             Width = 150,
-        };
+            Font = new Font("Oswald", 12, FontStyle.Regular),         
+            DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList,
+            BackColor = Color.White,
+    };
+       
         //sugubox.Items.Add("Mees");
-        TextBox sugu = new TextBox
-        {
-            Location = new System.Drawing.Point(200, 225),//Point(x,y)
-            Height = 90,
-            Width = 150,
-            UseSystemPasswordChar = true
-        };
+
         NumericUpDown vanus = new NumericUpDown
         {
-            Location = new System.Drawing.Point(200, 285),//Point(x,y)
+            Location = new System.Drawing.Point(200, 282),//Point(x,y)
             Height = 90,
             Width = 150,
-            //UseSystemPasswordChar = true
+            Font = new Font("Oswald", 12, FontStyle.Regular),
 
         };
         TextBox password = new TextBox
         {
-            Location = new System.Drawing.Point(200, 345),//Point(x,y)
+            Location = new System.Drawing.Point(200, 342),//Point(x,y)
             Height = 90,
             Width = 150,
+            Font = new Font("Oswald", 12, FontStyle.Regular),
             UseSystemPasswordChar = true
 
         };
@@ -64,15 +67,17 @@ namespace Kolm_rakendust
         public Registr()
         {
             this.StartPosition = FormStartPosition.CenterScreen;
-            this.Name = "Registr";
+            this.Name = "Registreerimine";
             this.Size = new Size(500, 600);
+            this.BackColor = Color.SkyBlue;
+
 
             Label nimilabel = new Label
             {
-                Location = new System.Drawing.Point(200, 30),//Point(x,y)
+                Location = new System.Drawing.Point(150, 30),//Point(x,y)
                 Height = 50,
-                Width = 170,
-                Text = "Registr vorm",
+                Width = 300,
+                Text = "Registreerimine vorm",
                 Font = new Font("Oswald", 16, FontStyle.Bold)
             };
 
@@ -131,7 +136,8 @@ namespace Kolm_rakendust
                 Location = new System.Drawing.Point(90, 450),//Point(x,y)
                 Width = 150,
                 Height = 35,
-                BackColor = Color.LightYellow
+                BackColor = Color.LightCyan,
+                Font = new Font("Oswald", 10, FontStyle.Regular)
             };
             registrbutton.Click += Registrbutton_Click;
             back = new Button
@@ -140,10 +146,15 @@ namespace Kolm_rakendust
                 Location = new System.Drawing.Point(280, 450),//Point(x,y)
                 Width = 150,
                 Height = 35,
-                BackColor = Color.LightYellow
+                BackColor = Color.LightCyan,
+                Font = new Font("Oswald", 10, FontStyle.Regular)
             };
             back.Click += Back_Click;
 
+            sugubox.Items.AddRange(new string[] { "Mees", "Naine" });//lisamine variantid "sugubox"
+            //sugubox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+
+            //sugubox.ReadOnly = true;
             this.Controls.Add(nimilabel);
             this.Controls.Add(loginnimi);
             this.Controls.Add(passwordnimi);
@@ -167,12 +178,51 @@ namespace Kolm_rakendust
             this.Hide();
         }
 
-        private void Registrbutton_Click(object sender, EventArgs e)
+        static string conn = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\nikit\source\repos\Kolm_rakendustet\Kolm rakendust\appData\KasutajaDbnew.mdf;Integrated Security=True";
+        /*Надо менять            ↑ ↑ ↑ ↑ ↑ ↑ ↑  вот это, если ты пересел за другой комп!!!!!!!!!*/
+        SqlConnection connect_to_DB = new SqlConnection(conn);
+
+        SqlCommand command;
+        SqlDataAdapter adapter;
+
+        private async void Registrbutton_Click(object sender, EventArgs e)
         {
-            Start start = new Start();
-            start.StartPosition = FormStartPosition.CenterScreen;
-            start.Show();
-            this.Hide();
+            if (kasutaja.Text != "" && email.Text != "" && sugubox.Text != "" && vanus.Text != "" && password.Text != "")
+            {
+                try
+                {
+                    File.WriteAllText(@"../../Data/Data.txt", string.Empty);
+                    command = new SqlCommand("INSERT INTO Login(kasutajanimi,email,sugu,vanus,parool) VALUES(@nimi,@email,@sugu,@vanus,@parool)", connect_to_DB);
+                    connect_to_DB.Open();
+                    command.Parameters.AddWithValue("@nimi", kasutaja.Text);
+                    command.Parameters.AddWithValue("@email", email.Text);
+                    command.Parameters.AddWithValue("@sugu", sugubox.Text);
+                    command.Parameters.AddWithValue("@vanus", vanus.Text);
+                    command.Parameters.AddWithValue("@parool", password.Text);
+
+                    command.ExecuteNonQuery();
+                    connect_to_DB.Close();
+
+                    MessageBox.Show("Registreerimine oli edukas, hea puhkus!");
+                    StreamWriter sw = new StreamWriter(@"../../Data/Data.txt");
+                    sw.Write(kasutaja.Text);
+                    sw.Close();
+                    Start start = new Start();
+                    start.StartPosition = FormStartPosition.CenterScreen;
+                    start.Show();
+                    this.Hide();
+                }
+                catch (Exception)
+                {
+
+                    MessageBox.Show("Ei saanud registreeruda!");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Te pole kõike täitnud palun kontrollige!");
+            }
+            
         }
     }
 }
