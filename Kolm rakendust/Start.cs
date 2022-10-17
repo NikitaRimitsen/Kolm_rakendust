@@ -105,10 +105,14 @@ namespace Kolm_rakendust
 
         private void Mathgame_Click(object sender, EventArgs e)
         {
-            Game game = new Game();
+            Keerukus keerukus = new Keerukus();
+            keerukus.StartPosition = FormStartPosition.CenterScreen;
+            keerukus.Show();
+            this.Hide();
+            /*Game game = new Game();
             game.StartPosition = FormStartPosition.CenterScreen;
             game.Show();
-            this.Hide();
+            this.Hide();*/
         }
 
         private void Mathquiz_Click(object sender, EventArgs e)

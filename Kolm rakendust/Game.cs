@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
@@ -22,16 +23,10 @@ namespace Kolm_rakendust
         TableLayoutPanel tablemeduim;
         Random random = new Random();
         Label[] labelsmail= new Label[16];
-        List<string> iconsmedium = new List<string>()
-        {
-        "!", "!", "b", "b", "[", "[", "J", "J",
-        "8", "8", ":", ":", "=", "=", "(", "("
-        };
-
         List<string> icons = new List<string>()
         {
         "!", "!", "b", "b", "[", "[", "J", "J",
-        "8", "8", ":", ":", "=", "=", "(", "(","A","A","o","o","i","i", "e", "e","j","j"
+        "8", "8", ":", ":", "=", "=", "(", "("
         };
         Label firstClicked = null;
         Label secondClicked = null;
@@ -67,12 +62,12 @@ namespace Kolm_rakendust
                 CellBorderStyle = TableLayoutPanelCellBorderStyle.Inset,
 
             };
-            table.ColumnCount = 5;
-            table.RowCount = 5;
-            for (int i = 0; i < 5; i++)
+            table.ColumnCount = 4;
+            table.RowCount = 4;
+            for (int i = 0; i < 4; i++)
             {
                 table.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20));
-                for (int j = 0; j < 5; j++)
+                for (int j = 0; j < 4; j++)
                 {
                     table.RowStyles.Add(new RowStyle(SizeType.Percent, 20));
                     labelsmail[i] = new Label
@@ -110,9 +105,9 @@ namespace Kolm_rakendust
 
         private void Tagasi_Click(object sender, EventArgs e)
         {
-            Start start = new Start();
-            start.StartPosition = FormStartPosition.CenterScreen;
-            start.Show();
+            Keerukus keerukus = new Keerukus();
+            keerukus.StartPosition = FormStartPosition.CenterScreen;
+            keerukus.Show();
             this.Hide();
         }
 
@@ -123,7 +118,6 @@ namespace Kolm_rakendust
                 gametimer.Stop();
             }*/
         }
-
         private void CheckForWinner()
         {
             foreach (Control control in table.Controls)
@@ -149,9 +143,9 @@ namespace Kolm_rakendust
             }
             else
             {
-                Start start = new Start();
-                start.StartPosition = FormStartPosition.CenterScreen;
-                start.Show();
+                Keerukus keerukus = new Keerukus();
+                keerukus.StartPosition = FormStartPosition.CenterScreen;
+                keerukus.Show();
                 this.Hide();
             }
             

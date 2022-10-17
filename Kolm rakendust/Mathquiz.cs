@@ -120,11 +120,12 @@ namespace Kolm_rakendust
                 AutoSize = true,
                 TabIndex = 0,
                 Location = new Point(150, 290),
+                BackColor = Color.White,
             };
             start.Click += Start_Click;
             exit = new Button
             {
-                Text = "Väljund",
+                Text = "Tagasi",
                 Name = "exitButton",
                 Font = new Font("Calibri", 14, FontStyle.Bold),
                 Width = 230,
@@ -132,6 +133,7 @@ namespace Kolm_rakendust
                 AutoSize = true,
                 TabIndex = 0,
                 Location = new Point(150, 340),
+                BackColor = Color.White,
             };
             exit.Click += Exit_Click;
 
@@ -339,7 +341,7 @@ namespace Kolm_rakendust
             else
             {
                 timer.Stop();
-                time.Text = "Aeg n läbi!";
+                time.Text = "Aeg on läbi!";
                 MessageBox.Show("Sa ei jõudnud aegade lõpuni:(", "Vabandust!");
                 numeric1.Value = addend1 + addend2;
                 numeric2.Value = minuend - subtrahend;
