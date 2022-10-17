@@ -17,25 +17,49 @@ namespace Kolm_rakendust
 {
     public partial class Game : Form
     {
+        TableLayoutPanel tableLayotPanel;
         TableLayoutPanel table;
+        TableLayoutPanel tablemeduim;
         Random random = new Random();
         Label[] labelsmail= new Label[16];
+        List<string> iconsmedium = new List<string>()
+        {
+        "!", "!", "b", "b", "[", "[", "J", "J",
+        "8", "8", ":", ":", "=", "=", "(", "("
+        };
 
         List<string> icons = new List<string>()
         {
         "!", "!", "b", "b", "[", "[", "J", "J",
-        "8", "8", ":", ":", "=", "=", "(", "("
+        "8", "8", ":", ":", "=", "=", "(", "(","A","A","o","o","i","i", "e", "e","j","j"
         };
         Label firstClicked = null;
         Label secondClicked = null;
         Timer timer;
         Timer gametimer;
+
         int timeLeft;
         string time;
+        Button tagasi;
         public Game()
         {
             this.Name = " Matching game";
             this.Size = new Size(550, 550);
+            tagasi = new Button
+            {
+                Text = "Tagasi",
+                Location = new System.Drawing.Point(300, 480),//Point(x,y)
+                Width = 200,
+                Height = 37,
+                BackColor = Color.White,//LightBlue
+                Font = new Font("Oswald", 10, FontStyle.Regular)
+            };
+            tagasi.Click += Tagasi_Click;
+            tableLayotPanel = new TableLayoutPanel
+            {
+                Dock = DockStyle.Fill,
+                RowStyles = { new RowStyle(SizeType.Percent, 90), new RowStyle(SizeType.Percent, 10) }
+            };
             table = new TableLayoutPanel
             {
                 BackColor = Color.CornflowerBlue,
@@ -43,14 +67,14 @@ namespace Kolm_rakendust
                 CellBorderStyle = TableLayoutPanelCellBorderStyle.Inset,
 
             };
-            table.ColumnCount = 4;
-            table.RowCount = 4;
-            for (int i = 0; i < 4; i++)
+            table.ColumnCount = 5;
+            table.RowCount = 5;
+            for (int i = 0; i < 5; i++)
             {
-                table.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25));
-                for (int j = 0; j < 4; j++)
+                table.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20));
+                for (int j = 0; j < 5; j++)
                 {
-                    table.RowStyles.Add(new RowStyle(SizeType.Percent, 25));
+                    table.RowStyles.Add(new RowStyle(SizeType.Percent, 20));
                     labelsmail[i] = new Label
                     {
                         BackColor = Color.CornflowerBlue,
@@ -75,9 +99,21 @@ namespace Kolm_rakendust
                 Interval = 1000
             };
             gametimer.Tick += Gametimer_Tick;
-            this.Controls.Add(table);
+            tableLayotPanel.Controls.Add(table);
+            tableLayotPanel.SetCellPosition(table, new TableLayoutPanelCellPosition(0, 0));
+            tableLayotPanel.Controls.Add(tagasi);
+            tableLayotPanel.SetCellPosition(table, new TableLayoutPanelCellPosition(0, 0));
+            this.Controls.Add(tableLayotPanel);
             AssignIconsToSquares();
 
+        }
+
+        private void Tagasi_Click(object sender, EventArgs e)
+        {
+            Start start = new Start();
+            start.StartPosition = FormStartPosition.CenterScreen;
+            start.Show();
+            this.Hide();
         }
 
         private void Gametimer_Tick(object sender, EventArgs e)

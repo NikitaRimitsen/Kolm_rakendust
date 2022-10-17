@@ -25,6 +25,7 @@ namespace Kolm_rakendust
         {
             this.Name = "Piltide vaatamise tööriist";
             this.Size = new Size(850, 700);
+            
             tableLayotPanel = new TableLayoutPanel
             {
                 Dock = DockStyle.Fill,

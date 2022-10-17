@@ -72,7 +72,7 @@ namespace Kolm_rakendust
             tableplayers.Click += Tableplayers_Click;
             loobu = new Button
             {
-                Text = "Loobu",
+                Text = "Logi välja",
                 Width = 180,
                 Height = 30,
                 Location = new System.Drawing.Point(180, 350),

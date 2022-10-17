@@ -350,12 +350,19 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="appData\KasutajaDb.mdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="appData\KasutajaDbnew.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="appData\KasutajaDbnew_log.ldf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>KasutajaDbnew.mdf</DependentUpon>
+    </Content>
+    <Content Include="appData\KasutajaDb_log.ldf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <DependentUpon>KasutajaDb.mdf</DependentUpon>
     </Content>
     <Content Include="Data\Data.txt" />
   </ItemGroup>

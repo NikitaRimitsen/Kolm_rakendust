@@ -14,7 +14,7 @@ namespace Kolm_rakendust
     public partial class Players : Form
     {
         DataGridView dataGridView;
-        static string conn = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\nikit\source\repos\Kolm_rakendustet\Kolm rakendust\appData\KasutajaDbnew.mdf;Integrated Security=True";
+        static string conn = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\opilane\source\repos\Kolm_rakendusta\Kolm rakendust\appData\KasutajaDbnew.mdf;Integrated Security=True";
         /*Надо менять            ↑ ↑ ↑ ↑ ↑ ↑ ↑  вот это, если ты пересел за другой комп!!!!!!!!!*/
         SqlConnection connect_to_DB = new SqlConnection(conn);
         SqlCommand command;

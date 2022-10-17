@@ -47,6 +47,7 @@ namespace Kolm_rakendust
             this.FormBorderStyle = FormBorderStyle.Fixed3D;
             this.MaximizeBox = false;
             this.Size = new Size(550, 450);
+            this.BackColor = Color.Cornsilk;
             table2 = new TableLayoutPanel
             {
                 BorderStyle = BorderStyle.FixedSingle,
