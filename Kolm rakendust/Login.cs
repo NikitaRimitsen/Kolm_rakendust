@@ -17,7 +17,7 @@ namespace Kolm_rakendust
 
     public partial class Login : Form
     {
-        string connect = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\nikit\source\repos\Kolm_rakendustr\Kolm rakendust\appData\KasutajaDbnew.mdf;Integrated Security=True";
+        string connect = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\opilane\source\repos\Kolm_rakendusta\Kolm rakendust\appData\KasutajaDbnew.mdf;Integrated Security=True";
         
         Button loginbutton, registrbutton;
         TextBox login = new TextBox

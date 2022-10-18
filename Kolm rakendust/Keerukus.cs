@@ -32,7 +32,7 @@ namespace Kolm_rakendust
             lihtne.Click += Lihtne_Click;
             keeruline = new Button
             {
-                Text = "Keeruline",
+                Text = "Raske",
                 Width = 180,
                 Height = 70,
                 Location = new System.Drawing.Point(290, 60),
